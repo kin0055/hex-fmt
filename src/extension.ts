@@ -12,16 +12,21 @@ export function activate(context: ExtensionContext) {
     let hexDoc = new HexDocument();
     let controller = new HexDocumentController(hexDoc);
 
-    var seekDisposable = commands.registerCommand('extension.motFind', () => {
+    var seekDisposable = commands.registerCommand('extension.MotFind', () => {
         // Check this is a .mot file
-        if(window.activeTextEditor.document.languageId != "mot")
+        if(window.activeTextEditor.document.languageId != "Mot")
         {
             window.showErrorMessage("This command is only available with \".mot\" files.");
             return;
         }
 
         // Display a message box to the user
-        window.showInputBox({prompt: 'Type an adress to find'}).then(val => {
+        window.showInputBox({prompt: 'Type an address(Hex value) to find'}).then(val => {
+            //check if is hex input
+            if(val.substr(1,1) != 'x'){
+                val = "0x" + val;
+            }
+            //trans data
             let address = parseInt(val);
             if(address === NaN || address < 0) {
                 window.showErrorMessage("Wrong address format.");
@@ -37,7 +42,7 @@ export function activate(context: ExtensionContext) {
 
     var repairDisposable = commands.registerCommand('extension.repairMot', () => {
         // Check this is a .mot file
-        if(window.activeTextEditor.document.languageId != "mot")
+        if(window.activeTextEditor.document.languageId != "Mot")
         {
             window.showErrorMessage("This command is only available with \".mot\" files.");
             return;
@@ -94,7 +99,7 @@ class HexDocumentController {
 
     private _onSave() {
         // Check this is an .hex file
-        if(window.activeTextEditor.document.languageId === "mot" &&
+        if(window.activeTextEditor.document.languageId === "Mot" &&
             workspace.getConfiguration("mot-fmt").get("repairOnSave", false)) {
             // Repair and save if needed
             if(this._hexDoc.repair() > 0)

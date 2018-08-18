@@ -3,7 +3,7 @@
 <plist version="1.0">
     <dict>
         <key>scopeName</key>
-        <string>text.mot</string>
+        <string>text.Mot</string>
 
         <key>fileTypes</key>
         <array>
@@ -19,13 +19,13 @@
         <array>
             <dict>
                 <key>match</key>
-                <string>(S[0159])([0-9A-Fa-f])([0-9A-Fa-f]{2})([0-9A-Fa-f]*?)([0-9A-Fa-f]{2})$</string>
+                <string>(S[0159])([0-9A-Fa-f]{2})([0-9A-Fa-f]{4})([0-9A-Fa-f]*?)([0-9A-Fa-f]{2})$</string>
                 <key>captures</key>
                 <dict>
                     <key>1</key>
                     <dict>
                         <key>name</key>
-                        <string>keyword.operator</string>
+                        <string>keyword.operator.negation.regexp</string>
                     </dict>
                     <key>2</key>
                     <dict>
@@ -46,13 +46,13 @@
             </dict>
             <dict>
                 <key>match</key>
-                <string>(S[28])([0-9A-Fa-f])([0-9A-Fa-f]{3})([0-9A-Fa-f]*?)([0-9A-Fa-f]{2})$</string>
+                <string>(S[28])([0-9A-Fa-f]{2})([0-9A-Fa-f]{6})([0-9A-Fa-f]*?)([0-9A-Fa-f]{2})$</string>
                 <key>captures</key>
                 <dict>
                     <key>1</key>
                     <dict>
                         <key>name</key>
-                        <string>keyword.operator</string>
+                        <string>keyword.operator.negation.regexp</string>
                     </dict>
                     <key>2</key>
                     <dict>
@@ -73,13 +73,13 @@
             </dict>
             <dict>
                 <key>match</key>
-                <string>(S[37])([0-9A-Fa-f])([0-9A-Fa-f]{4})([0-9A-Fa-f]*?)([0-9A-Fa-f]{2})$</string>
+                <string>(S[37])([0-9A-Fa-f]{2})([0-9A-Fa-f]{8})([0-9A-Fa-f]*?)([0-9A-Fa-f]{2})$</string>
                 <key>captures</key>
                 <dict>
                     <key>1</key>
                     <dict>
                         <key>name</key>
-                        <string>keyword.operator</string>
+                        <string>keyword.operator.negation.regexp</string>
                     </dict>
                     <key>2</key>
                     <dict>

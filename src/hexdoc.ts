@@ -3,6 +3,7 @@ import {HexLine} from './hexline';
 
 export class HexDocument {
     private _hexLines: HexLine[];
+    private _BaseAddr: number;
     private _statusBarItem: StatusBarItem;
     private _size: number;
 
@@ -24,22 +25,25 @@ export class HexDocument {
         let doc = editor.document;
 
         // Only update status if an Mot file
-        if (doc.languageId === "mot") {
+        if (doc.languageId === "Mot") {
             this._updateDoc(doc);
 
             // Update the size
             if (this._size < 1024) {
-                this._statusBarItem.text = `$(file-binary) ${this._size} B`;
+                this._statusBarItem.text = `$(file-binary) Total Size: ${this._size} B`;
             } else {
                 let showableSize = this._size / 1024;
-                this._statusBarItem.text = `$(file-binary) ${showableSize} KB`;
+                this._statusBarItem.text = `$(file-binary) Total Size: ${showableSize} KB`;
             }
+            
+            // Update the CheckSum
+            this._statusBarItem.text += ` # Line Sum: 0x${this._hexLines[pos.line].computedChk().toString(16).toUpperCase()}`;
 
             // Update the address
             if(this._hexLines[pos.line].isData()) {
                 let address = this._hexLines[pos.line].charToAddress(pos.character);
                 if(address >= 0) {
-                    this._statusBarItem.text += ` $(mention) 0x${address.toString(16).toUpperCase()}`;
+                    this._statusBarItem.text += ` $(mention) Address: 0x${(this._BaseAddr + address).toString(16).toUpperCase()}`;
                 }
             }
 
@@ -51,12 +55,13 @@ export class HexDocument {
 
     public goToAddress(address: number) : boolean {
         for(let i = 0; i < this._hexLines.length; i++) {
-            let char = this._hexLines[i].addressToChar(address);
+            let char = this._hexLines[i].addressToChar( address, this._BaseAddr);
             if(char >= 0) {
                 // Get the current text editor
                 let editor = window.activeTextEditor;
-                let pos = new Position(i, char);
-                let sel = new Selection(pos, pos);
+                let pos2 = new Position(i, char + 2);
+                let pos1 = new Position(i, char);
+                let sel = new Selection(pos2, pos1);
                 
                 // Set the new position
                 editor.selection = sel;
@@ -108,6 +113,7 @@ export class HexDocument {
             if(this._hexLines[i].isExtendedAddress())
             {
                 offset = this._hexLines[i].extAddress();
+                this._BaseAddr = this._hexLines[i].extAddress();
             }
         }
     }

@@ -118,7 +118,11 @@ export class HexLine {
 
     public size(): number {
 
-        return this.nbData;
+        if(this.isData()){
+            return (this.nbData - this.datastart);
+        }
+        
+        return 0;
     }
 
     public charToAddress(character: number): number {
@@ -127,7 +131,7 @@ export class HexLine {
             if(relative >= 0)
             {
                 relative = Math.trunc(relative)
-                if (relative < this.nbData) {
+                if (relative < (this.nbData - this.datastart)) {
                     return relative + this.address + this._addOffset;//?
                 }
             }
@@ -137,35 +141,27 @@ export class HexLine {
     }
 
     public extAddress(): number {
-        if (this.data.length < 2) {
-            return -1;
-        }
+        if (this.address != NaN) {
 
-        switch(this.hexType) {
-            case TYPES.MOT_EXE_LOG_4ADDR:
-                return (this.data[0] * 16777216 + this.data[1] * 65536 + this.data[2] * 256 + this.data[3]) * (256^(this.datastart - 1));
-            case TYPES.MOT_EXE_LOG_3ADDR:
-                return (this.data[0] * 65536 + this.data[1] * 256 + this.data[2]) * (256^(this.datastart - 1));
-            case TYPES.MOT_EXE_LOG_2ADDR:
-                return (this.data[0] * 256 + this.data[1]) * (256^(this.datastart - 1));
+            return this.address;
         }
 
         return -1;
     }
 
-    public addressToChar(address: number) : number {
+    public addressToChar(address: number , baseaddr: number) : number {
         if(this.isData()) {
-            let lowRange = this.address + this._addOffset;
-            let highRange = lowRange + this.nbData -1;
+            let lowRange = this.address + baseaddr;//
+            let highRange = lowRange + (this.nbData - this.datastart);
 
             if(lowRange <= address && address <= highRange) {
-                return ((address - lowRange) * 2) + this.datastart;
+                return ((address - lowRange) * 2) + (this.datastart * 2) + 2;
             }
         }
         return -1;
     }
 
-    private computedChk() : number {
+    public computedChk() : number {
         return 255 - (this._byteSum % 256);// + 1
     }
 

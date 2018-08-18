@@ -19,40 +19,50 @@
         "vscode": "^1.5.0"
     },
     "categories": [
-        "Languages",
+        "Programming Languages",
         "Other"
     ],
     "activationEvents": [
-        "onLanguage:mot",
-        "onCommand:extension.motFind",
+        "onLanguage:Mot",
+        "onCommand:extension.MotFind",
         "onCommand:extension.repairmot"
     ],
     "main": "./out/src/extension",
     "contributes": {
-        "languages": [{
-            "id": "mot",
-            "extensions": [ ".mot" , ".MOT" , ".Mot" ]
-        }],
-        "grammars": [{
-            "language": "mot",
-            "scopeName": "text.mot",
-            "path": "./syntaxes/mot.tmLanguage"
-        }],
-        "commands": [{
-            "command": "extension.motFind",
-            "title": "Mot Find"
-        },
-        {
-            "command": "extension.repairMot",
-            "title": "Mot Repair"
-        }],
+        "languages": [
+            {
+                "id": "Mot",
+                "extensions": [
+                    ".mot",
+                    ".MOT",
+                    ".Mot"
+                ]
+            }
+        ],
+        "grammars": [
+            {
+                "language": "Mot",
+                "scopeName": "text.Mot",
+                "path": "./syntaxes/mot.tmLanguage"
+            }
+        ],
+        "commands": [
+            {
+                "command": "extension.MotFind",
+                "title": "Mot Find"
+            },
+            {
+                "command": "extension.repairMot",
+                "title": "Mot Repair"
+            }
+        ],
         "configuration": {
             "type": "object",
             "title": "Mot-fmt configuration",
             "properties": {
                 "mot-fmt.repairOnSave": {
                     "type": "boolean",
-                    "default": true,
+                    "default": false,
                     "description": "Try to repair an mot file each times it's saved."
                 }
             }
