@@ -12,11 +12,11 @@ export function activate(context: ExtensionContext) {
     let hexDoc = new HexDocument();
     let controller = new HexDocumentController(hexDoc);
 
-    var seekDisposable = commands.registerCommand('extension.hexFind', () => {
-        // Check this is a .hex file
-        if(window.activeTextEditor.document.languageId != "hex")
+    var seekDisposable = commands.registerCommand('extension.motFind', () => {
+        // Check this is a .mot file
+        if(window.activeTextEditor.document.languageId != "mot")
         {
-            window.showErrorMessage("This command is only available with \".hex\" files.");
+            window.showErrorMessage("This command is only available with \".mot\" files.");
             return;
         }
 
@@ -35,11 +35,11 @@ export function activate(context: ExtensionContext) {
         });
     });
 
-    var repairDisposable = commands.registerCommand('extension.repairHex', () => {
-        // Check this is a .hex file
-        if(window.activeTextEditor.document.languageId != "hex")
+    var repairDisposable = commands.registerCommand('extension.repairMot', () => {
+        // Check this is a .mot file
+        if(window.activeTextEditor.document.languageId != "mot")
         {
-            window.showErrorMessage("This command is only available with \".hex\" files.");
+            window.showErrorMessage("This command is only available with \".mot\" files.");
             return;
         }
 
@@ -94,8 +94,8 @@ class HexDocumentController {
 
     private _onSave() {
         // Check this is an .hex file
-        if(window.activeTextEditor.document.languageId === "hex" &&
-            workspace.getConfiguration("hex-fmt").get("repairOnSave", false)) {
+        if(window.activeTextEditor.document.languageId === "mot" &&
+            workspace.getConfiguration("mot-fmt").get("repairOnSave", false)) {
             // Repair and save if needed
             if(this._hexDoc.repair() > 0)
             {

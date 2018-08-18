@@ -23,8 +23,8 @@ export class HexDocument {
         let pos = editor.selection.active;
         let doc = editor.document;
 
-        // Only update status if an Hex file
-        if (doc.languageId === "hex") {
+        // Only update status if an Mot file
+        if (doc.languageId === "mot") {
             this._updateDoc(doc);
 
             // Update the size

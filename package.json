@@ -1,19 +1,19 @@
 {
-    "name": "hex-fmt",
-    "displayName": "Intel HEX format",
-    "description": "Adds support for the Intel HEX file format with syntax highlighting and basic commands",
-    "version": "1.0.0",
-    "publisher": "keroc",
+    "name": "mot-fmt",
+    "displayName": "Motorola Mot format",
+    "description": "Adds support for the Motorola Mot file format with syntax highlighting and basic commands",
+    "version": "0.8.0",
+    "publisher": "jin",
     "icon": "images/icone.png",
     "galleryBanner": {
         "color": "#5c2d91",
         "theme": "dark"
     },
     "license": "SEE LICENSE IN LICENSE.md",
-    "homepage": "https://github.com/keroc/hex-fmt/blob/master/README.md",
+    "homepage": "https://github.com/kin0055/mot-fmt/blob/master/README.md",
     "repository": {
         "type": "git",
-        "url": "https://github.com/keroc/hex-fmt"
+        "url": "https://github.com/kin0055/mot-fmt"
     },
     "engines": {
         "vscode": "^1.5.0"
@@ -23,37 +23,37 @@
         "Other"
     ],
     "activationEvents": [
-        "onLanguage:hex",
-        "onCommand:extension.hexFind",
-        "onCommand:extension.repairHex"
+        "onLanguage:mot",
+        "onCommand:extension.motFind",
+        "onCommand:extension.repairmot"
     ],
     "main": "./out/src/extension",
     "contributes": {
         "languages": [{
-            "id": "hex",
-            "extensions": [ ".hex" , ".HEX" ]
+            "id": "mot",
+            "extensions": [ ".mot" , ".MOT" , ".Mot" ]
         }],
         "grammars": [{
-            "language": "hex",
-            "scopeName": "text.hex",
-            "path": "./syntaxes/hex.tmLanguage"
+            "language": "mot",
+            "scopeName": "text.mot",
+            "path": "./syntaxes/mot.tmLanguage"
         }],
         "commands": [{
-            "command": "extension.hexFind",
-            "title": "Hex Find"
+            "command": "extension.motFind",
+            "title": "Mot Find"
         },
         {
-            "command": "extension.repairHex",
-            "title": "Hex Repair"
+            "command": "extension.repairMot",
+            "title": "Mot Repair"
         }],
         "configuration": {
             "type": "object",
-            "title": "Hex-fmt configuration",
+            "title": "Mot-fmt configuration",
             "properties": {
-                "hex-fmt.repairOnSave": {
+                "mot-fmt.repairOnSave": {
                     "type": "boolean",
                     "default": true,
-                    "description": "Try to repair an hex file each times it's saved."
+                    "description": "Try to repair an mot file each times it's saved."
                 }
             }
         }
