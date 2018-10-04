@@ -72,6 +72,7 @@ export class HexDocument {
         return false;
     }
 
+    //need add funtion to repair S5 log data
     public repair() : number {
 
         // Create the workspace edit
